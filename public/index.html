@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ฐานข้อมูล LCI ปูนซีเมนต์และวัสดุก่อสร้าง | CN230 S2-G08</title>
+  <meta name="description" content="เว็บแสดงฐานข้อมูล LCI ของปูนซีเมนต์และวัสดุก่อสร้างไทยบน MongoDB Atlas พร้อมแหล่งที่มาของทุกค่า">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='26' rx='5' fill='%23B9C2BB'/%3E%3Ccircle cx='22' cy='10' r='4' fill='%230D6764'/%3E%3C/svg%3E">
+  <link rel="preload" href="vendor/fonts/ibm-plex-sans-thai-thai-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <script src="vendor/chart-4.5.1.umd.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">ข้ามไปที่เนื้อหา</a>
+  <div class="shell">
+    <aside class="side">
+      <a class="brand" href="#/">
+        <span class="brand-title">ฐานข้อมูล LCI</span>
+        <span class="brand-sub">ปูนซีเมนต์และวัสดุก่อสร้างไทย</span>
+      </a>
+      <nav class="nav" aria-label="ส่วนของเว็บ">
+        <a href="#/" data-route="overview">ภาพรวมฐานข้อมูล</a>
+        <a href="#/lci" data-route="lci">LCI ของกระบวนการผลิต</a>
+        <a href="#/monthly" data-route="monthly">สถิติรายเดือน สศอ.</a>
+        <a href="#/sources" data-route="sources">แหล่งข้อมูล</a>
+      </nav>
+      <div class="conn" id="conn" aria-live="polite">
+        <p class="conn-state"><span class="conn-dot" aria-hidden="true"></span><span>กำลังเชื่อมต่อ MongoDB Atlas</span></p>
+      </div>
+      <p class="team">CN230 กลุ่ม S2-G08 pongodb</p>
+    </aside>
+    <main id="main" class="main" tabindex="-1">
+      <p class="loading">กำลังดึงข้อมูลจาก MongoDB Atlas</p>
+    </main>
+  </div>
+  <div class="backdrop" id="backdrop" hidden></div>
+  <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+    <button class="drawer-close" id="drawer-close" type="button">ปิด</button>
+    <div class="drawer-body" id="drawer-body"></div>
+  </aside>
+  <div class="tip" id="tip" role="tooltip" hidden></div>
+  <noscript><p class="loading">เว็บนี้ต้องเปิด JavaScript เพื่อดึงข้อมูลจากฐานข้อมูล</p></noscript>
+</body>
+</html>

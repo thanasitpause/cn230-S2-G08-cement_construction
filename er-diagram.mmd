@@ -1,0 +1,76 @@
+erDiagram
+  Data_Source ||--o{ Monthly_Stat : SourceID
+  Product ||--o{ Monthly_Stat : ProductID
+  Data_Source ||--o{ Process : SourceID
+  TSIC_Class ||--o{ Process : TSICClass
+  Process ||--o| Process_Product : ProcessID
+  Product ||--o{ Process_Product : ProductID
+  Process ||--o{ Process_Standard : ProcessID
+  Process ||--o{ LCI_Exchange : ProcessID
+  Flow ||--o{ LCI_Exchange : FlowID
+  Data_Source {
+    int SourceID PK
+    string SourceCode UK
+    string SourceType
+    string Organization
+    string Title
+    string URL
+    int DataYear
+    date RetrievedDate
+  }
+  TSIC_Class {
+    string TSICClass PK
+    string ClassNameTH
+    string ClassNameEN
+  }
+  Product {
+    int ProductID PK
+    string TSIC UK
+    string Code UK
+    string ProductName
+    string Unit
+  }
+  Monthly_Stat {
+    int ProductID PK,FK
+    int Year PK
+    int Month PK
+    int SourceID PK,FK
+    int BeginMonthInv
+    int Production
+    int Domestic
+    int Export
+    int ShipmentValue
+    int EndMonthInv
+    int Capacity
+  }
+  Flow {
+    int FlowID PK
+    string FlowName UK
+    string FlowType
+    string Unit
+  }
+  Process {
+    int ProcessID PK
+    string ProcessName
+    string Packaging
+    string TSICClass FK
+    decimal DeclaredAmount
+    string DeclaredUnit
+    string LifecycleStage
+    string Geography
+    int SourceID FK
+  }
+  Process_Product {
+    int ProcessID PK,FK
+    int ProductID FK
+  }
+  Process_Standard {
+    int ProcessID PK,FK
+    string Standard PK
+  }
+  LCI_Exchange {
+    int ProcessID PK,FK
+    int FlowID PK,FK
+    string Direction
+    decimal Amount
+  }

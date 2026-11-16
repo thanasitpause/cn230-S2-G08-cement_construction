@@ -1,0 +1,13 @@
+{
+  "name": "cn230-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CN230 S2-G08 — เว็บ demo ฐานข้อมูล LCI ปูนซีเมนต์และวัสดุก่อสร้าง (MongoDB Atlas + Vercel)",
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file=.env dev-server.mjs"
+  },
+  "dependencies": {
+    "mongodb": "7.8.0"
+  }
+}

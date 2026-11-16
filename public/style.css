@@ -1,0 +1,289 @@
+/* ---------- ฟอนต์ (เก็บไว้ในเว็บเอง ไม่ต้องโหลดจากภายนอก) ---------- */
+@font-face { font-family: "Plex Sans Thai"; font-weight: 400; font-display: swap; src: url(vendor/fonts/ibm-plex-sans-thai-thai-400-normal.woff2) format("woff2"); unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: "Plex Sans Thai"; font-weight: 500; font-display: swap; src: url(vendor/fonts/ibm-plex-sans-thai-thai-500-normal.woff2) format("woff2"); unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: "Plex Sans Thai"; font-weight: 600; font-display: swap; src: url(vendor/fonts/ibm-plex-sans-thai-thai-600-normal.woff2) format("woff2"); unicode-range: U+02D7, U+0303, U+0331, U+0E01-0E5B, U+200C-200D, U+25CC; }
+@font-face { font-family: "Plex Sans Thai"; font-weight: 400; font-display: swap; src: url(vendor/fonts/ibm-plex-sans-thai-latin-400-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Plex Sans Thai"; font-weight: 500; font-display: swap; src: url(vendor/fonts/ibm-plex-sans-thai-latin-500-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Plex Sans Thai"; font-weight: 600; font-display: swap; src: url(vendor/fonts/ibm-plex-sans-thai-latin-600-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Plex Mono"; font-weight: 400; font-display: swap; src: url(vendor/fonts/ibm-plex-mono-latin-400-normal.woff2) format("woff2"); }
+@font-face { font-family: "Plex Mono"; font-weight: 500; font-display: swap; src: url(vendor/fonts/ibm-plex-mono-latin-500-normal.woff2) format("woff2"); }
+
+/* ---------- token ---------- */
+:root {
+  color-scheme: light;
+  --plane: #e7ebe6;        /* พื้นหลังสีคอนกรีต */
+  --surface: #fbfcfa;      /* พื้นของแผงข้อมูล */
+  --surface-2: #f1f4f0;
+  --ink: #16201b;
+  --ink-2: #47534d;
+  --muted: #66716b;
+  --hair: #d5dbd4;
+  --hair-strong: #b4beb6;
+  --accent: #0d6764;       /* ลิงก์ ปุ่ม และสถานะที่เลือก */
+  --accent-wash: #dbebe7;
+  --good: #0ca30c;
+  --good-text: #006300;
+  --critical: #d03b3b;
+  --t-stat: #2a78d6;       /* สีประจำประเภทแหล่งข้อมูล */
+  --t-epd: #1baf7a;
+  --t-db: #6250d6;
+  --t-cfp: #eda100;
+  --t-report: #e87ba4;
+  --sans: "Plex Sans Thai", "IBM Plex Sans Thai", "Noto Sans Thai", "Leelawadee UI", Tahoma, sans-serif;
+  --mono: "Plex Mono", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --side-w: 248px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--plane);
+  color: var(--ink);
+  font: 400 15px/1.7 var(--sans);
+  font-kerning: normal;
+}
+h1, h2, h3, p, ul, ol, dl, dd, figure { margin: 0; }
+a { color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.skip { position: absolute; left: 12px; top: -48px; background: var(--surface); padding: 8px 12px; z-index: 50; }
+.skip:focus { top: 12px; }
+.num { font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- โครงหน้า ---------- */
+.shell { display: grid; grid-template-columns: var(--side-w) minmax(0, 1fr); min-height: 100vh; }
+.side {
+  position: sticky; top: 0; height: 100vh;
+  display: flex; flex-direction: column; gap: 28px;
+  padding: 28px 20px 24px 24px;
+  border-right: 1px solid var(--hair);
+}
+.brand { display: flex; flex-direction: column; text-decoration: none; color: var(--ink); }
+.brand-title { font-size: 22px; font-weight: 600; line-height: 1.3; }
+.brand-sub { font-size: 14px; color: var(--ink-2); line-height: 1.5; }
+.nav { display: flex; flex-direction: column; gap: 2px; margin-left: -10px; }
+.nav a {
+  display: block; padding: 7px 10px; border-radius: 6px;
+  color: var(--ink-2); text-decoration: none; font-weight: 500;
+}
+.nav a:hover { background: var(--surface-2); color: var(--ink); }
+.nav a[aria-current="page"] { background: var(--surface); color: var(--ink); box-shadow: inset 3px 0 0 var(--accent); }
+.conn { margin-top: auto; font-size: 13px; line-height: 1.6; color: var(--ink-2); }
+.conn-state { display: flex; align-items: center; gap: 8px; color: var(--ink); font-weight: 500; }
+.conn-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--hair-strong); flex: none; }
+.conn.is-ok .conn-dot { background: var(--good); }
+.conn.is-err .conn-dot { background: var(--critical); }
+.conn dl { margin-top: 6px; }
+.conn dt { color: var(--muted); font-size: 12px; margin-top: 4px; }
+.conn dd { overflow-wrap: anywhere; line-height: 1.45; }
+.conn button { margin-top: 10px; }
+.team { font-size: 12.5px; color: var(--muted); }
+
+.main { padding: 36px 40px 64px; max-width: 1180px; width: 100%; outline: none; }
+.loading { color: var(--muted); padding: 36px 40px; }
+
+/* ---------- หัวหน้า / หัวข้อ ---------- */
+.crumb { font-size: 13.5px; color: var(--muted); margin-bottom: 6px; }
+.page-head { margin-bottom: 32px; max-width: 760px; }
+.page-head h1 { font-size: 30px; font-weight: 600; line-height: 1.3; letter-spacing: -0.005em; }
+.lead { font-size: 17px; color: var(--ink-2); margin-top: 8px; line-height: 1.65; }
+.lead strong { color: var(--ink); font-weight: 600; }
+section { margin-top: 44px; }
+section > h2, .sec-head h2 { font-size: 20px; font-weight: 600; line-height: 1.4; }
+.sec-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+.note { font-size: 14px; color: var(--ink-2); margin-top: 4px; max-width: 72ch; }
+.panel { background: var(--surface); border: 1px solid var(--hair); border-radius: 8px; margin-top: 14px; }
+.pad { padding: 20px 24px; }
+
+/* ---------- ปุ่มและฟอร์ม ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: 6px; cursor: pointer;
+  background: var(--surface); border: 1px solid var(--hair-strong); color: var(--ink);
+  font-size: 13.5px; font-weight: 500; line-height: 1.6;
+}
+.btn:hover { border-color: var(--accent); }
+.btn[disabled] { opacity: .45; cursor: default; border-color: var(--hair); }
+.linkbtn { background: none; border: 0; padding: 0; color: var(--accent); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; font-size: inherit; }
+.filters { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 20px; margin-top: 18px; }
+.field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--ink-2); }
+.field select, .field input {
+  min-width: 180px; padding: 6px 10px; border-radius: 6px;
+  border: 1px solid var(--hair-strong); background: var(--surface); font-size: 14.5px;
+}
+.seg { display: inline-flex; border: 1px solid var(--hair-strong); border-radius: 6px; overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: none; padding: 6px 12px; cursor: pointer; font-size: 14px; color: var(--ink-2); }
+.seg button + button { border-left: 1px solid var(--hair); }
+.seg button[aria-pressed="true"] { background: var(--accent-wash); color: var(--ink); font-weight: 500; }
+
+/* ---------- ป้ายแหล่งข้อมูล (หัวใจของเว็บ: ทุกค่าบอกที่มา) ---------- */
+.src {
+  display: inline-flex; align-items: center; gap: 6px; max-width: 100%;
+  padding: 1px 8px 1px 7px; border-radius: 4px;
+  border: 1px solid var(--hair-strong); background: var(--surface);
+  font: 500 12.5px/1.7 var(--sans); color: var(--ink);
+  cursor: pointer; white-space: nowrap; vertical-align: middle;
+}
+.src:hover { border-color: var(--accent); background: var(--accent-wash); }
+.src .dot, .tdot { width: 8px; height: 8px; border-radius: 2px; flex: none; background: var(--c, var(--hair-strong)); }
+.src-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.ref { font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+.type { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-2); white-space: nowrap; }
+
+/* ---------- ภาพรวม: เส้นทางข้อมูล ---------- */
+.lineage { margin-top: 14px; display: grid; gap: 12px; }
+.lin-row {
+  display: grid; grid-template-columns: minmax(240px, 0.9fr) 28px minmax(0, 1.4fr);
+  align-items: center; gap: 16px;
+  background: var(--surface); border: 1px solid var(--hair); border-left: 4px solid var(--c);
+  border-radius: 8px; padding: 18px 22px;
+}
+.lin-src h3 { font-size: 18px; font-weight: 600; line-height: 1.4; }
+.lin-src p { font-size: 13.5px; color: var(--ink-2); margin: 2px 0 10px; }
+.lin-arrow { color: var(--hair-strong); }
+.lin-arrow svg { display: block; width: 28px; height: 16px; }
+.lin-to { display: flex; flex-wrap: wrap; gap: 10px 28px; }
+.lin-to a { display: flex; flex-direction: column; text-decoration: none; color: var(--ink); min-width: 92px; }
+.lin-to a b { font-size: 28px; font-weight: 600; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.lin-to a span { font-size: 13px; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.lin-to a:hover span { text-decoration-thickness: 2px; }
+
+/* ---------- ผลตรวจ ---------- */
+.checks { list-style: none; padding: 0; }
+.checks li { display: grid; grid-template-columns: 22px 1fr; gap: 2px 12px; padding: 14px 24px; border-top: 1px solid var(--hair); }
+.checks li:first-child { border-top: 0; }
+.mark { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; color: #fff; margin-top: 3px; }
+.mark svg { width: 12px; height: 12px; }
+.mark.ok { background: var(--good); }
+.mark.bad { background: var(--critical); }
+.checks .t { font-weight: 500; }
+.checks .d { grid-column: 2; font-size: 13.5px; color: var(--ink-2); }
+.checks details { grid-column: 2; }
+.status-line { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; }
+.status-line.ok { color: var(--good-text); }
+.status-line.bad { color: var(--critical); }
+
+/* ---------- ตาราง ---------- */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--hair); vertical-align: top; }
+th { font-weight: 500; color: var(--ink-2); font-size: 13px; background: var(--surface-2); border-bottom-color: var(--hair-strong); white-space: nowrap; }
+thead th:first-child { border-top-left-radius: 8px; }
+thead th:last-child { border-top-right-radius: 8px; }
+tbody tr:last-child td { border-bottom: 0; }
+td.r, th.r { text-align: right; font-variant-numeric: tabular-nums; }
+td.code, th.code { font-family: var(--mono); font-size: 13px; }
+tr.clickable { cursor: pointer; }
+tr.clickable:hover td { background: var(--surface-2); }
+.rowlink { color: var(--ink); font-weight: 500; text-decoration: none; text-align: left; background: none; border: 0; padding: 0; cursor: pointer; }
+.rowlink:hover { color: var(--accent); text-decoration: underline; }
+.sub { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.dash { color: var(--hair-strong); }
+.pager { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-top: 1px solid var(--hair); font-size: 13.5px; color: var(--ink-2); }
+.pager .grow { flex: 1; }
+
+/* ---------- คำสั่ง MongoDB ---------- */
+details.q { margin-top: 8px; }
+details.q summary { cursor: pointer; color: var(--accent); font-size: 13.5px; width: max-content; max-width: 100%; }
+details.q summary:hover { text-decoration: underline; text-underline-offset: 3px; }
+.qlist { display: grid; gap: 14px; margin-top: 10px; }
+.qlabel { font-size: 13px; color: var(--ink-2); margin-bottom: 4px; }
+pre {
+  margin: 0; padding: 12px 14px; max-height: 360px; overflow: auto;
+  background: var(--surface-2); border: 1px solid var(--hair); border-radius: 6px;
+  font: 400 12.5px/1.55 var(--mono); color: var(--ink); tab-size: 2;
+}
+
+/* ---------- กราฟ ---------- */
+.chart-box { position: relative; padding: 18px 20px 12px; }
+.chart-title { font-size: 15px; font-weight: 600; }
+.chart-sub { font-size: 13px; color: var(--ink-2); }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 10px 0 4px; font-size: 13.5px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.legend i { width: 16px; height: 2px; border-radius: 1px; background: var(--c); }
+.canvas-wrap { position: relative; }
+.chart-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 10px 20px 14px; border-top: 1px solid var(--hair); font-size: 13px; color: var(--ink-2); }
+.tip {
+  position: fixed; z-index: 60; pointer-events: none; min-width: 160px; max-width: 320px;
+  background: var(--surface); border: 1px solid var(--hair-strong); border-radius: 6px;
+  padding: 8px 10px; font-size: 13px; line-height: 1.5; box-shadow: 0 6px 18px rgba(22, 32, 27, .12);
+}
+.tip .tt { color: var(--ink-2); margin-bottom: 4px; }
+.tip .tr { display: flex; align-items: center; gap: 8px; }
+.tip .tr i { width: 12px; height: 2px; background: var(--c); flex: none; }
+.tip .tr b { font-variant-numeric: tabular-nums; font-weight: 600; }
+.tip .tr span { color: var(--ink-2); }
+
+/* ---------- ตัวเลขสรุป ---------- */
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+.tile { background: var(--surface); border: 1px solid var(--hair); border-radius: 8px; padding: 14px 16px; }
+.tile .l { font-size: 13.5px; color: var(--ink-2); }
+.tile .v { font-size: 24px; font-weight: 600; line-height: 1.35; }
+.tile .v small { font-size: 14px; font-weight: 400; color: var(--ink-2); margin-left: 4px; }
+.tile .dl { font-size: 12.5px; color: var(--ink-2); }
+
+/* ---------- รายการ ---------- */
+.plain { list-style: none; padding: 0; }
+.items li { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px; padding: 10px 0; border-top: 1px solid var(--hair); }
+.items li:first-child { border-top: 0; }
+.empty { color: var(--ink-2); font-size: 14px; }
+
+/* ---------- ER diagram ---------- */
+.er { padding: 16px; overflow: auto; }
+.er img { display: block; width: 100%; min-width: 760px; height: auto; }
+
+/* ---------- แผงรายละเอียดด้านขวา ---------- */
+.backdrop { position: fixed; inset: 0; background: rgba(22, 32, 27, .28); z-index: 40; }
+.drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 45;
+  width: min(560px, 100vw); background: var(--surface);
+  border-left: 1px solid var(--hair-strong); overflow-y: auto;
+  box-shadow: -12px 0 32px rgba(22, 32, 27, .14);
+  animation: slide-in .18s ease-out;
+}
+@keyframes slide-in { from { transform: translateX(24px); opacity: .6; } to { transform: none; opacity: 1; } }
+.drawer-close { position: sticky; top: 12px; float: right; margin: 12px 16px 0 0; z-index: 1; }
+.drawer-close { padding: 4px 12px; border-radius: 6px; border: 1px solid var(--hair-strong); background: var(--surface); cursor: pointer; font-size: 13.5px; }
+.drawer-close:hover { border-color: var(--accent); }
+.drawer-body { padding: 24px 28px 48px; }
+.drawer-body h2 { font-size: 22px; font-weight: 600; line-height: 1.4; margin-top: 10px; padding-right: 48px; }
+.drawer-body h3 { font-size: 15px; font-weight: 600; margin: 26px 0 8px; }
+.drawer-body .org { color: var(--ink-2); margin-top: 2px; }
+.facts { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; font-size: 14px; margin-top: 18px; }
+.facts dt { color: var(--muted); }
+.srcbox { background: var(--surface-2); border: 1px solid var(--hair); border-radius: 8px; padding: 14px 16px; }
+.srcbox .facts { margin-top: 10px; }
+
+.err { border-left: 4px solid var(--critical); }
+.err h2 { font-size: 18px; }
+
+@media (max-width: 1020px) {
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lin-row { grid-template-columns: 1fr; gap: 10px; }
+  .lin-arrow { transform: rotate(90deg); width: 16px; }
+}
+@media (max-width: 860px) {
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .side { position: static; height: auto; gap: 12px; padding: 16px 16px 0; border-right: 0; border-bottom: 1px solid var(--hair); }
+  .brand-title { font-size: 19px; }
+  .nav { flex-direction: row; overflow-x: auto; margin: 0 -16px; padding: 0 16px 10px; gap: 4px; }
+  .nav a { white-space: nowrap; }
+  .nav a[aria-current="page"] { box-shadow: inset 0 -2px 0 var(--accent); }
+  .team, .conn dl, .conn button, .conn > p:not(.conn-state) { display: none; }
+  .conn { margin-top: 0; padding-bottom: 10px; font-size: 12.5px; }
+  .main { padding: 24px 16px 56px; }
+  .page-head h1 { font-size: 25px; }
+  .lead { font-size: 16px; }
+  .pad, .checks li { padding-left: 16px; padding-right: 16px; }
+  .chart-box { padding: 14px 12px 8px; }
+  .drawer-body { padding: 20px 18px 40px; }
+  .field select, .field input { min-width: 0; width: 100%; }
+  .filters .field { flex: 1 1 200px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drawer { animation: none; }
+}
